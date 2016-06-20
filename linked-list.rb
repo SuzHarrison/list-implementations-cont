@@ -13,6 +13,7 @@ class Node
 end
 
 class LinkedList
+  attr_accessor :head
    def initialize
      @head = nil
      @size = 0
@@ -22,7 +23,7 @@ class LinkedList
        if @size == 0
          @head = Node.new(value,nil)
          @size += 1
-       end
+       else
        # Traverse to the end of the list
        # And insert a new node over there with the specified value
        current = @head
@@ -31,7 +32,8 @@ class LinkedList
        end
        current.next_node = Node.new(value,nil)
        @size += 1
-       self
+      end
+      self
    end
 
    def delete(val)
@@ -61,8 +63,12 @@ class LinkedList
    def display
        # Traverse through the list till you hit the "nil" at the end
        current = @head
+       puts @head.next_node.next_node.value
        full_list = []
        while current.next_node != nil
+
+
+
            full_list += [current.value.to_s]
            current = current.next_node
        end
@@ -71,7 +77,7 @@ class LinkedList
    end
 
    def include?(key)
-     current = @head
+     current = @head # Don't lose the head
      while current != nil
        return true if current.value == key
        current = current.next_node
@@ -94,6 +100,54 @@ class LinkedList
        current = current.next_node
      end
      return max
+   end
+
+   def sort
+     current = @head
+     nxt = current.next_node
+     while current != nil
+       if current.value > nxt.value
+         current = nxt
+       else
+         nxt = nil
+     end
+    return
+  end
+
+
+  #    #5 numbers in a row - no new array
+  #    # 28 17 11 13 54
+  #    # find smallest and compare with next_node.
+  #    # swap if head not smaller
+  #    ## traverse through the list multiple times
+  #    ## add to the end
+  #    ## go through part of list - find highest
+  #    ## @size.times loop to got through to _1 for each max you put on the end of the list.
+  #    ## variables = needs a head, previous and max
+  #
+  #   val = @head.value
+  #    current = @head.next_node
+  #    while current != nil
+  #     if current.value > current.next_node
+   #
+  #  end
+   #
+   def reverse
+     previous = nil
+     current = @head
+     nxt = current.next_node
+
+     return current if nxt.nil?
+     current.next_node = previous
+
+     while nxt != nil
+      previous = current
+      current = nxt
+      nxt = nxt.next_node
+     end
+
+     current.next_node = previous
+     @head = current
    end
 
 end
